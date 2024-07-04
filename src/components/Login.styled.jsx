@@ -12,4 +12,8 @@ export const Container = styled.div`
   -webkit-box-shadow: 0px 2px 18px 1px rgba(150, 192, 237, 1);
   -moz-box-shadow: 0px 2px 18px 1px rgba(150, 192, 237, 1);
   box-shadow: 0px 2px 18px 1px rgba(150, 192, 237, 1);
+
+  @media only screen and (max-width: 500px) {
+    width: 100vw;
+  }
 `;
