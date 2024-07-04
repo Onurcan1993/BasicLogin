@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const initialForm = {
   email: "",
   password: "",
+  check: false,
 };
 
 export default function Login() {
@@ -21,6 +22,7 @@ export default function Login() {
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
   const [valid, setValid] = useState(false);
+  const [check, setCheck] = useState(false);
 
   const history = useHistory();
 
@@ -35,9 +37,13 @@ export default function Login() {
   };
 
   const changeHandler = (e) => {
-    const { name, value, id } = e.target;
+    const { name, value, id, checked } = e.target;
 
-    setFormData({ ...formData, [name]: value });
+    setFormData(
+      name === "check"
+        ? { ...formData, [name]: checked }
+        : { ...formData, [name]: value }
+    );
 
     if (id === "email") {
       isValidEmail(value) ? setValidEmail(true) : setValidEmail(false);
@@ -45,6 +51,10 @@ export default function Login() {
 
     if (id === "password") {
       isValidPhone(value) ? setValidPassword(true) : setValidPassword(false);
+    }
+
+    if (id === "check") {
+      checked ? setCheck(true) : setCheck(false);
     }
   };
 
@@ -55,8 +65,8 @@ export default function Login() {
   };
 
   useEffect(() => {
-    validEmail && validPassword ? setValid(true) : setValid(false);
-  }, [validEmail, validPassword]);
+    check && validEmail && validPassword ? setValid(true) : setValid(false);
+  }, [validEmail, validPassword, check]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -114,16 +124,22 @@ export default function Login() {
             )}
           </FormFeedback>
         </FormGroup>
-        {/* <FormGroup
+        <FormGroup
           className="d-flex flex-row align-items-center justify-content-between gap-2"
           check
           inline
         >
-          <Input type="checkbox" />
+          <Input
+            type="checkbox"
+            id="check"
+            name="check"
+            invalid={!check}
+            onChange={changeHandler}
+          />
           <Label size="sm" className="mr-3 lh-sm" check>
             I agree to the terms and conditions and the privacy policy
           </Label>
-        </FormGroup> */}
+        </FormGroup>
         <Button
           onClick={clickHandler}
           className="w-25 align-self-center btn btn-info"
