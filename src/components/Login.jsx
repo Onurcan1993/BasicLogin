@@ -68,7 +68,7 @@ export default function Login() {
 
   return (
     <Container>
-      <Form className="d-flex flex-column  w-80" onSubmit={submitHandler}>
+      <Form className="d-flex flex-column  w-75" onSubmit={submitHandler}>
         <FormGroup className="align-self-center">
           <Label style={{ fontSize: "30px" }} className="mb-5 text-info">
             Login
